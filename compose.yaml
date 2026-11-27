@@ -1,0 +1,93 @@
+name: memos
+
+x-daemonless:
+  title: "Memos"
+  icon: ":material-note-text:"
+  category: "Productivity"
+  description: "Open-source, self-hosted note-taking app that brings your everyday thoughts together in a personal timeline."
+  upstream_url: "https://github.com/usememos/memos"
+  web_url: "https://usememos.com"
+  user: "bsd"
+  mlock: false
+  appjail: true
+  cli: [memos]
+  community: "Discord:https://discord.gg/Kb9tkhecZT"
+
+  docs:
+    env:
+      PUID: "User ID for the application process"
+      PGID: "Group ID for the application process"
+      TZ: "Timezone for the container"
+      MEMOS_INSTANCE_URL:
+        desc: "Canonical external URL of the Memos instance"
+        public_url: url
+        optional: true
+        level: primary
+      MEMOS_DRIVER:
+        desc: "Database driver (sqlite, postgres, or mysql; defaults to sqlite)"
+        optional: true
+        level: options
+      MEMOS_DSN:
+        desc: "Database connection string when using postgres or mysql"
+        secret: true
+        optional: true
+        level: options
+      MEMOS_DSN_FILE:
+        desc: "Path to a file containing MEMOS_DSN"
+        optional: true
+        level: advanced
+      MEMOS_LOG_LEVEL:
+        desc: "Log verbosity level (debug, info, warn, error)"
+        optional: true
+        level: advanced
+      MEMOS_DEMO:
+        desc: "Seed the instance with demo content on first start"
+        type: boolean
+        optional: true
+        level: advanced
+      MEMOS_TRUSTED_PROXIES:
+        desc: "Comma-separated CIDRs, IPs, private, or none for forwarding headers"
+        optional: true
+        level: advanced
+    volumes:
+      /config: "Persistent Memos SQLite database, attachments, and instance data"
+    ports:
+      5230: "Web UI and API"
+
+  notes: |
+    ## First start and data
+
+    Open `http://<host>:5230` to create the initial host account. By default
+    Memos uses an embedded SQLite database stored in `/config` alongside any
+    uploaded attachments.
+
+    ## External database
+
+    To use PostgreSQL or MySQL instead of SQLite, set `MEMOS_DRIVER` to
+    `postgres` or `mysql` and pass the connection string via `MEMOS_DSN` (or
+    `MEMOS_DSN_FILE`).
+
+    ## CLI subcommands
+
+    Run Memos CLI commands as `bsd` in `/config`, for example:
+
+    ```sh
+    podman exec memos memos version
+    ```
+
+services:
+  memos:
+    image: ghcr.io/daemonless/memos:latest
+    container_name: memos
+    restart: unless-stopped
+
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+
+    volumes:
+      - /path/to/containers/memos:/config
+
+    ports:
+      - "5230:5230"

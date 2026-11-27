@@ -1,0 +1,92 @@
+ARG BASE_VERSION=15.1
+FROM ghcr.io/daemonless/base-exec:${BASE_VERSION} AS builder
+
+ARG APP_VERSION=""
+ARG UPSTREAM_URL="https://api.github.com/repos/usememos/memos/releases/latest"
+ARG UPSTREAM_JQ=".tag_name"
+
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \
+    HOME=/tmp/build-home
+
+RUN pkg update && \
+    pkg install -y go127 node24 npm-node24 corepack git-lite ca_root_nss && \
+    pkg clean -ay && \
+    rm -rf /var/cache/pkg/* /var/db/pkg/repos/*
+
+RUN set -eux; \
+    mkdir -p "${HOME}" /out; \
+    VERSION="${APP_VERSION}"; \
+    if [ -z "${VERSION}" ]; then \
+        VERSION=$(fetch -qo - "${UPSTREAM_URL}" | jq -r "${UPSTREAM_JQ}"); \
+    fi; \
+    test -n "${VERSION}" && [ "${VERSION}" != "null" ]; \
+    CLEAN_VER="${VERSION#v}"; \
+    git clone --depth 1 --branch "${VERSION}" https://github.com/usememos/memos.git /src; \
+    COMMIT=$(git -C /src rev-parse --short=7 HEAD); \
+    corepack enable; \
+    cd /src/web; \
+    pnpm install --frozen-lockfile; \
+    pnpm release; \
+    cd /src; \
+    CGO_ENABLED=0 go127 build \
+      -trimpath \
+      -ldflags="-s -w -X github.com/usememos/memos/internal/version.Version=${CLEAN_VER} -X github.com/usememos/memos/internal/version.Commit=${COMMIT}" \
+      -tags netgo,osusergo \
+      -o /out/memos \
+      ./cmd/memos; \
+    chmod 0755 /out/memos; \
+    printf '%s\n' "${CLEAN_VER}" > /out/version; \
+    chmod 0644 /out/version
+
+FROM ghcr.io/daemonless/base-exec:${BASE_VERSION}
+
+ARG FREEBSD_ARCH=amd64
+ARG PACKAGES="ca_root_nss"
+ARG UPSTREAM_URL="https://api.github.com/repos/usememos/memos/releases/latest"
+ARG UPSTREAM_JQ=".tag_name"
+ARG HEALTHCHECK_ENDPOINT="http://127.0.0.1:5230/healthz"
+
+ENV HEALTHCHECK_URL="${HEALTHCHECK_ENDPOINT}" \
+    MEMOS_PORT="5230" \
+    MEMOS_DATA="/config"
+
+LABEL org.opencontainers.image.title="{{ title }}" \
+      org.opencontainers.image.description="{{ description }}" \
+      org.opencontainers.image.source="{{ repo_url }}" \
+      org.opencontainers.image.url="{{ web_url }}" \
+      org.opencontainers.image.documentation="https://usememos.com/docs" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.vendor="daemonless" \
+      org.opencontainers.image.authors="daemonless" \
+      io.daemonless.category="{{ category }}" \
+{%- if ports %}
+      io.daemonless.port="{{ ports[0].port }}" \
+{%- endif %}
+{%- if volumes %}
+      io.daemonless.volumes="{{ volumes | map(attribute='path') | join(',') }}" \
+{%- endif %}
+      io.daemonless.arch="${FREEBSD_ARCH}" \
+      io.daemonless.upstream-url="${UPSTREAM_URL}" \
+      io.daemonless.upstream-jq="${UPSTREAM_JQ}" \
+      io.daemonless.healthcheck-url="${HEALTHCHECK_ENDPOINT}" \
+      io.daemonless.packages="${PACKAGES}"
+
+# Install root certificates for outbound webhooks, OIDC, S3 storage, and link previews
+RUN pkg update && \
+    pkg install -y ${PACKAGES} && \
+    pkg clean -ay && \
+    rm -rf /var/cache/pkg/* /var/db/pkg/repos/*
+
+COPY --from=builder /out/memos /usr/local/bin/memos
+COPY --from=builder /out/version /app/version
+
+COPY root/ /
+RUN chmod +x /daemonless/libexec/memos && \
+    mkdir -p /config && \
+    chown -R bsd:bsd /config
+
+WORKDIR /config
+CMD ["/daemonless/libexec/memos"]
+
+EXPOSE 5230
+VOLUME /config
