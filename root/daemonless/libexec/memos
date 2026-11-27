@@ -1,0 +1,33 @@
+#!/bin/sh
+# Start Memos (or run a Memos CLI subcommand); /init drops to the run user
+# during container boot, and dsu drops root under direct podman exec.
+
+if [ "$(id -u)" -eq 0 ]; then
+    run_user="${DAEMONLESS_USER:-bsd}"
+    run_home=$(getent passwd "${run_user}" | cut -d: -f6)
+    export HOME="${run_home:-/config}" USER="${run_user}" LOGNAME="${run_user}"
+    exec dsu "${run_user}" "$0" "$@"
+fi
+
+export HOME=/config
+export MEMOS_DATA="${MEMOS_DATA:-/config}"
+export MEMOS_PORT="${MEMOS_PORT:-5230}"
+
+if [ -n "${MEMOS_DSN:-}" ] && [ -n "${MEMOS_DSN_FILE:-}" ]; then
+    echo "error: both MEMOS_DSN and MEMOS_DSN_FILE are set" >&2
+    exit 1
+fi
+if [ -n "${MEMOS_DSN_FILE:-}" ]; then
+    if [ ! -r "${MEMOS_DSN_FILE}" ]; then
+        echo "error: MEMOS_DSN_FILE '${MEMOS_DSN_FILE}' is not readable" >&2
+        exit 1
+    fi
+    MEMOS_DSN=$(cat "${MEMOS_DSN_FILE}")
+    export MEMOS_DSN
+    unset MEMOS_DSN_FILE
+fi
+
+mkdir -p "${MEMOS_DATA}"
+cd "${MEMOS_DATA}" || exit 1
+
+exec /usr/local/bin/memos "$@"
