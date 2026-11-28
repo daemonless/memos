@@ -1,11 +1,11 @@
 {
-  "generated": "2026-11-27T23:03:27Z",
+  "generated": "2026-11-28T09:01:35Z",
   "image": "memos",
   "tags": {
     "latest": {
-      "app_version": "26.11.2",
+      "app_version": "26.11.3",
       "arch": "amd64",
-      "generated": "2026-11-27T23:02:56Z",
+      "generated": "2026-11-28T09:01:04Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -278,6 +278,11 @@
         ],
         "go": [
           {
+            "name": "cel.dev/cel-go",
+            "purl": "",
+            "version": "v0.33.4"
+          },
+          {
             "name": "cel.dev/expr",
             "purl": "",
             "version": "v0.25.3"
@@ -300,12 +305,17 @@
           {
             "name": "connectrpc.com/connect",
             "purl": "",
-            "version": "v1.20.0"
+            "version": "v1.21.1"
           },
           {
             "name": "filippo.io/edwards25519",
             "purl": "",
             "version": "v1.2.0"
+          },
+          {
+            "name": "github.com/anthropics/anthropic-sdk-go/v2",
+            "purl": "",
+            "version": "v2.15.0"
           },
           {
             "name": "github.com/antlr4-go/antlr/v4",
@@ -315,102 +325,117 @@
           {
             "name": "github.com/at-wat/ebml-go",
             "purl": "",
-            "version": "v0.19.0"
+            "version": "v0.19.4"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2",
             "purl": "",
-            "version": "v1.43.6"
+            "version": "v1.48.1"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream",
             "purl": "",
-            "version": "v1.7.18"
+            "version": "v1.7.28"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/config",
             "purl": "",
-            "version": "v1.32.37"
+            "version": "v1.33.22"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/credentials",
             "purl": "",
-            "version": "v1.19.36"
+            "version": "v1.21.4"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/feature/ec2/imds",
             "purl": "",
-            "version": "v1.18.37"
+            "version": "v1.20.10"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/internal/configsources",
             "purl": "",
-            "version": "v1.4.37"
+            "version": "v1.5.13"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/internal/endpoints/v2",
             "purl": "",
-            "version": "v2.7.37"
+            "version": "v2.8.13"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/internal/v4a",
             "purl": "",
-            "version": "v1.4.38"
+            "version": "v1.5.13"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding",
             "purl": "",
-            "version": "v1.13.17"
+            "version": "v1.13.26"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/internal/checksum",
             "purl": "",
-            "version": "v1.9.30"
+            "version": "v1.11.14"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/internal/presigned-url",
             "purl": "",
-            "version": "v1.13.37"
+            "version": "v1.14.13"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/internal/s3shared",
             "purl": "",
-            "version": "v1.19.38"
+            "version": "v1.20.13"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/s3",
             "purl": "",
-            "version": "v1.107.2"
+            "version": "v1.116.1"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/signin",
             "purl": "",
-            "version": "v1.5.6"
+            "version": "v1.14.1"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/sso",
             "purl": "",
-            "version": "v1.33.6"
+            "version": "v1.39.6"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/ssooidc",
             "purl": "",
-            "version": "v1.38.6"
+            "version": "v1.44.6"
           },
           {
             "name": "github.com/aws/aws-sdk-go-v2/service/sts",
             "purl": "",
-            "version": "v1.45.6"
+            "version": "v1.53.1"
           },
           {
             "name": "github.com/aws/smithy-go",
             "purl": "",
-            "version": "v1.27.8"
+            "version": "v1.28.10"
+          },
+          {
+            "name": "github.com/bahlo/generic-list-go",
+            "purl": "",
+            "version": "v0.2.0"
+          },
+          {
+            "name": "github.com/buger/jsonparser",
+            "purl": "",
+            "version": "v1.1.2"
           },
           {
             "name": "github.com/cespare/xxhash/v2",
             "purl": "",
             "version": "v2.3.0"
+          },
+          {
+            "name": "github.com/coder/websocket",
+            "purl": "",
+            "version": "v1.8.15"
           },
           {
             "name": "github.com/disintegration/imaging",
@@ -420,7 +445,7 @@
           {
             "name": "github.com/dustin/go-humanize",
             "purl": "",
-            "version": "v1.0.1"
+            "version": "v1.1.0"
           },
           {
             "name": "github.com/felixge/httpsnoop",
@@ -445,7 +470,7 @@
           {
             "name": "github.com/go-sql-driver/mysql",
             "purl": "",
-            "version": "v1.10.0"
+            "version": "v1.10.2"
           },
           {
             "name": "github.com/go-viper/mapstructure/v2",
@@ -456,11 +481,6 @@
             "name": "github.com/golang-jwt/jwt/v5",
             "purl": "",
             "version": "v5.3.1"
-          },
-          {
-            "name": "github.com/google/cel-go",
-            "purl": "",
-            "version": "v0.31.0"
           },
           {
             "name": "github.com/google/go-cmp",
@@ -500,7 +520,12 @@
           {
             "name": "github.com/grpc-ecosystem/grpc-gateway/v2",
             "purl": "",
-            "version": "v2.30.0"
+            "version": "v2.34.0"
+          },
+          {
+            "name": "github.com/invopop/jsonschema",
+            "purl": "",
+            "version": "v0.14.0"
           },
           {
             "name": "github.com/lib/pq",
@@ -510,7 +535,7 @@
           {
             "name": "github.com/lithammer/shortuuid/v4",
             "purl": "",
-            "version": "v4.2.0"
+            "version": "v4.3.0"
           },
           {
             "name": "github.com/mattn/go-isatty",
@@ -520,17 +545,22 @@
           {
             "name": "github.com/modelcontextprotocol/go-sdk",
             "purl": "",
-            "version": "v1.7.0"
+            "version": "v1.8.0"
           },
           {
             "name": "github.com/ncruces/go-strftime",
             "purl": "",
-            "version": "v1.0.0"
+            "version": "v1.1.0"
           },
           {
             "name": "github.com/openai/openai-go/v3",
             "purl": "",
-            "version": "v3.51.0"
+            "version": "v3.108.0"
+          },
+          {
+            "name": "github.com/pb33f/ordered-map/v2",
+            "purl": "",
+            "version": "v2.3.1"
           },
           {
             "name": "github.com/pelletier/go-toml/v2",
@@ -593,6 +623,11 @@
             "version": "v1.21.0"
           },
           {
+            "name": "github.com/standard-webhooks/standard-webhooks/libraries",
+            "purl": "",
+            "version": "v0.0.1"
+          },
+          {
             "name": "github.com/subosito/gotenv",
             "purl": "",
             "version": "v1.6.0"
@@ -600,7 +635,7 @@
           {
             "name": "github.com/tidwall/gjson",
             "purl": "",
-            "version": "v1.19.0"
+            "version": "v1.20.1"
           },
           {
             "name": "github.com/tidwall/match",
@@ -620,7 +655,7 @@
           {
             "name": "github.com/usememos/memos",
             "purl": "",
-            "version": "v0.0.0-20261122090215-00fcd170281a+dirty"
+            "version": "v0.0.0-20261128053042-09a874553a76+dirty"
           },
           {
             "name": "github.com/yosida95/uritemplate/v3",
@@ -630,7 +665,7 @@
           {
             "name": "github.com/yuin/goldmark",
             "purl": "",
-            "version": "v1.8.5"
+            "version": "v1.8.7"
           },
           {
             "name": "go.opentelemetry.io/auto/sdk",
@@ -663,14 +698,19 @@
             "version": "v3.0.5"
           },
           {
+            "name": "go.yaml.in/yaml/v4",
+            "purl": "",
+            "version": "v4.0.0"
+          },
+          {
             "name": "golang.org/x/crypto",
             "purl": "",
-            "version": "v0.58.0"
+            "version": "v0.59.0"
           },
           {
             "name": "golang.org/x/exp",
             "purl": "",
-            "version": "v0.0.0-20260813180055-c1d0aacb2297"
+            "version": "v0.0.0-20261113113407-e3970619a1a4"
           },
           {
             "name": "golang.org/x/image",
@@ -680,27 +720,27 @@
           {
             "name": "golang.org/x/net",
             "purl": "",
-            "version": "v0.62.0"
+            "version": "v0.63.0"
           },
           {
             "name": "golang.org/x/oauth2",
             "purl": "",
-            "version": "v0.36.0"
+            "version": "v0.38.0"
           },
           {
             "name": "golang.org/x/sync",
             "purl": "",
-            "version": "v0.24.0"
+            "version": "v0.25.0"
           },
           {
             "name": "golang.org/x/sys",
             "purl": "",
-            "version": "v0.49.0"
+            "version": "v0.50.0"
           },
           {
             "name": "golang.org/x/text",
             "purl": "",
-            "version": "v0.43.0"
+            "version": "v0.44.0"
           },
           {
             "name": "golang.org/x/time",
@@ -715,27 +755,27 @@
           {
             "name": "google.golang.org/genai",
             "purl": "",
-            "version": "v1.68.0"
+            "version": "v1.79.1"
           },
           {
             "name": "google.golang.org/genproto",
             "purl": "",
-            "version": "v0.0.0-20260810153831-ec0a7760b754"
+            "version": "v0.0.0-20261123191846-1e707ab9fbc2"
           },
           {
             "name": "google.golang.org/genproto/googleapis/api",
             "purl": "",
-            "version": "v0.0.0-20260810153831-ec0a7760b754"
+            "version": "v0.0.0-20261123191846-1e707ab9fbc2"
           },
           {
             "name": "google.golang.org/genproto/googleapis/rpc",
             "purl": "",
-            "version": "v0.0.0-20260810153831-ec0a7760b754"
+            "version": "v0.0.0-20261123191846-1e707ab9fbc2"
           },
           {
             "name": "google.golang.org/grpc",
             "purl": "",
-            "version": "v1.84.0"
+            "version": "v1.85.0"
           },
           {
             "name": "google.golang.org/protobuf",
@@ -750,7 +790,7 @@
           {
             "name": "modernc.org/libc",
             "purl": "",
-            "version": "v1.75.3"
+            "version": "v1.80.1"
           },
           {
             "name": "modernc.org/mathutil",
@@ -760,12 +800,12 @@
           {
             "name": "modernc.org/memory",
             "purl": "",
-            "version": "v1.12.0"
+            "version": "v1.12.1"
           },
           {
             "name": "modernc.org/sqlite",
             "purl": "",
-            "version": "v1.56.0"
+            "version": "v1.63.0"
           },
           {
             "name": "stdlib",
@@ -784,14 +824,14 @@
       "summary": {
         "dotnet": 0,
         "freebsd": 38,
-        "go": 99,
+        "go": 107,
         "java": 0,
         "node": 0,
         "php": 0,
         "python": 0,
         "ruby": 0,
         "rust": 0,
-        "total": 137
+        "total": 145
       }
     }
   }
